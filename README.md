@@ -11,7 +11,7 @@ Storing data on in-memory H2 Database.
     * [Table Design](#table-design)
     * [Endpoints](#endpoints)
     * [Potential Test Cases](#potential-test-cases)
-  * [How to use (TODO)](#how-to-use-todo)
+  * [How to use](#how-to-use-todo)
   * [Additional notes](#additional-notes)
 <!-- TOC -->
 
