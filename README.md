@@ -119,6 +119,8 @@ Storing data on in-memory H2 Database.
     * Customer not found
 
 ## How to use (TODO)
+user: admin
+password: password
 * listLoans (GET)
   * Endpoint: http://localhost:8080/listLoans?customerId=1&loanStatus=ALL
   * Loanstatus: ‘ALL’, ‘PAID’, ‘UNPAID’
