@@ -7,6 +7,7 @@ Storing data on in-memory H2 Database.
 <!-- TOC -->
 * [Credit Module](#credit-module)
   * [Technical Design](#technical-design)
+    * [TODO List](#todo-list)
     * [Table Design](#table-design)
     * [Endpoints](#endpoints)
     * [Potential Test Cases](#potential-test-cases)
@@ -15,11 +16,19 @@ Storing data on in-memory H2 Database.
 <!-- TOC -->
 
 ## Technical Design
+### TODO List
+* listLoans: OK
+* listInstallment: OK
+* payLoan: OK
+* CreateLoan: OK
+* Admin login: OK
+* Bonus 1: NOT OK
+* Bonus 2: OK
+
 ### Table Design
 * Customer: id, name, surname, creditLimit, usedCreditLimit
 * Loan: id, customerId, loanAmount, numberOfInstallment, createDate, isPaid
 * LoanInstallment: id, loanId, amount, paidAmount, dueDate, paymentDate, isPaid
-
 
 ### Endpoints
 * createLoan
@@ -110,4 +119,15 @@ Storing data on in-memory H2 Database.
     * Customer not found
 
 ## How to use (TODO)
+* listLoans (GET)
+  * Endpoint: http://localhost:8080/listLoans?customerId=1&loanStatus=ALL
+  * Loanstatus: ‘ALL’, ‘PAID’, ‘UNPAID’
+* listInstallment (GET)
+  * Endpoint: http://localhost:8080/listInstallments?customerId=1&loanId=1234
+* createLoan (POST)
+  * http://localhost:8080/createLoan
+* payLoan (POST)
+  * http://localhost:8080/payLoan
+
+For tests Postman Collection in the main directory can be used. 
 ## Additional notes
