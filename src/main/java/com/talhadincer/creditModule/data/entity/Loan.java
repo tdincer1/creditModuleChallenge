@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class Loan {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Long customerId;

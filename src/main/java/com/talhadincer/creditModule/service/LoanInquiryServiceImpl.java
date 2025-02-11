@@ -10,13 +10,14 @@ import com.talhadincer.creditModule.data.dto.service.LoanDto;
 import com.talhadincer.creditModule.data.entity.Customer;
 import com.talhadincer.creditModule.data.entity.Loan;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Service
 public class LoanInquiryServiceImpl implements LoanInquiryService {
 
     private final CustomerDao customerDao;
@@ -45,17 +46,19 @@ public class LoanInquiryServiceImpl implements LoanInquiryService {
 
     private List<Loan> findLoans(long customerId, String loanStatus) throws DataException {
         List<Loan> loanList;
-        try {
-            if (LoanStatus.ALL.getStatus().equals(loanStatus)) {
-                loanList = loanDao.findByCustomerId(customerId);
-            } else if (LoanStatus.PAID.getStatus().equals(loanStatus)) {
-                loanList = loanDao.findByCustomerIdAndIsPaid(customerId, true);
-            } else {
-                loanList = loanDao.findByCustomerIdAndIsPaid(customerId, false);
-            }
-        } catch (EmptyResultDataAccessException e) {
+
+        if (LoanStatus.ALL.getStatus().equals(loanStatus)) {
+            loanList = loanDao.findByCustomerId(customerId);
+        } else if (LoanStatus.PAID.getStatus().equals(loanStatus)) {
+            loanList = loanDao.findByCustomerIdAndIsPaid(customerId, true);
+        } else {
+            loanList = loanDao.findByCustomerIdAndIsPaid(customerId, false);
+        }
+
+        if (loanList.isEmpty()) {
             throw new DataException(ResponseCodes.LOAN_NOT_FOUND.getCode(), ResponseCodes.LOAN_NOT_FOUND.getDescription());
         }
+
         return loanList;
     }
 
@@ -66,7 +69,7 @@ public class LoanInquiryServiceImpl implements LoanInquiryService {
                     .id(entity.getId())
                     .amount(entity.getLoanAmount())
                     .numberOfInstallments(entity.getNumberOfInstallments())
-                    .isPaid(entity.getIsPaid())
+                    .paid(entity.getIsPaid())
                     .build());
         }
         return dtoList;

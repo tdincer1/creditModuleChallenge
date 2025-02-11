@@ -1,6 +1,9 @@
 package com.talhadincer.creditModule.data.dto.controller;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -24,6 +27,5 @@ public class CreateLoanRequest {
     @DecimalMax("0.5")
     private BigDecimal interestRate; //(between 0.1 – 0.5)
 
-    //TODO: servis icerisinde kontrol et.
     private int numberOfInstallments; // (6, 9, 12, 24)
 }

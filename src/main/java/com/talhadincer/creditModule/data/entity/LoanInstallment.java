@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class LoanInstallment {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long loanId;
     private BigDecimal amount;

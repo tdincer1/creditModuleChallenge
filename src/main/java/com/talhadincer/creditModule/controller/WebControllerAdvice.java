@@ -1,5 +1,6 @@
 package com.talhadincer.creditModule.controller;
 
+import com.talhadincer.creditModule.core.constant.ResponseCodes;
 import com.talhadincer.creditModule.core.exception.CreditModuleBaseException;
 import com.talhadincer.creditModule.data.dto.controller.BaseApiResponse;
 import org.springframework.http.HttpStatus;
@@ -19,15 +20,19 @@ public class WebControllerAdvice {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
 
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) ->{
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String message = error.getDefaultMessage();
             errors.put(fieldName, message);
         });
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-    }
 
-    //HandlerMethodValidationException da eklenebilir. Swt qrdan bak gerekirse.
+        BaseApiResponse response = new BaseApiResponse();
+        response.setAdditionalInfo(errors);
+        response.setResponseCode(ResponseCodes.VALIDATION_ERROR.getCode());
+        response.setResponseDescription(ResponseCodes.VALIDATION_ERROR.getDescription());
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(CreditModuleBaseException.class)
     protected ResponseEntity<Object> handleInternalExceptions(CreditModuleBaseException ex) {

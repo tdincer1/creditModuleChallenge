@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +61,7 @@ class LoanInquiryServiceTest {
     void loanNotFoundError() {
 
         when(customerDao.findById(anyLong())).thenReturn(getDummyCustomer());
-        when(loanDao.findByCustomerId(anyLong())).thenThrow(new EmptyResultDataAccessException(1));
+        when(loanDao.findByCustomerId(anyLong())).thenReturn(new ArrayList<>());
 
         DataException exception = assertThrows(DataException.class, () -> service.listLoans(123, LoanStatus.ALL.getStatus()));
         assertEquals(ResponseCodes.LOAN_NOT_FOUND.getCode(), exception.getErrorCode());
@@ -71,7 +71,7 @@ class LoanInquiryServiceTest {
     void matchingLoanNotFoundError() {
 
         when(customerDao.findById(anyLong())).thenReturn(getDummyCustomer());
-        when(loanDao.findByCustomerIdAndIsPaid(anyLong(), anyBoolean())).thenThrow(new EmptyResultDataAccessException(1));
+        when(loanDao.findByCustomerIdAndIsPaid(anyLong(), anyBoolean())).thenReturn(new ArrayList<>());
 
         DataException exception = assertThrows(DataException.class, () -> service.listLoans(123, LoanStatus.UNPAID.getStatus()));
         assertEquals(ResponseCodes.LOAN_NOT_FOUND.getCode(), exception.getErrorCode());

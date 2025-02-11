@@ -10,6 +10,6 @@ import java.math.BigDecimal;
 public class PayLoanResponse extends BaseApiResponse {
 
     private BigDecimal paidAmount;
-    private Integer numberOfInstallments;
+    private Integer numberOfInstallmentsPaid;
     private boolean loanClosed;
 }
