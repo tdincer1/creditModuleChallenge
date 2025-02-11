@@ -118,7 +118,7 @@ Storing data on in-memory H2 Database.
     * Loan not found
     * Customer not found
 
-## How to use (TODO)
+## How to use
 user: admin
 password: password
 * listLoans (GET)
